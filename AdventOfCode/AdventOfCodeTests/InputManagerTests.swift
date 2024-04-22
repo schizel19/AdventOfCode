@@ -1,6 +1,6 @@
 //
-//  InputReaderTests.swift
-//  InputReaderTests
+//  InputManagerTests.swift
+//  InputManagerTests
 //
 //  Created by iosdev on 4/22/24.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import AdventOfCode
 
-final class InputReaderTests: XCTestCase {
+final class InputManagerTests: XCTestCase {
     
     func test_can_access_existing_bundle_resource() throws {
         let sut = makeSUT()
@@ -29,15 +29,15 @@ final class InputReaderTests: XCTestCase {
         }
     }
     
-    func assertError(_ error: Error, isError ref: InputReader.InputReaderError, file: String = #filePath, line: UInt = #line) {
-        if let error = error as? InputReader.InputReaderError, error == ref {
+    func assertError(_ error: Error, isError ref: InputManager.InputManagerError, file: String = #filePath, line: UInt = #line) {
+        if let error = error as? InputManager.InputManagerError, error == ref {
             return
         } else {
             XCTFail("Expected \(ref), got \(error) instead")
         }
     }
     
-    func makeSUT() -> InputReader {
+    func makeSUT() -> InputManager {
         return .init()
     }
 }

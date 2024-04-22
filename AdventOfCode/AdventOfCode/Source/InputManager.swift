@@ -1,5 +1,5 @@
 //
-//  InputReader.swift
+//  InputManager.swift
 //  AdventOfCode
 //
 //  Created by iosdev on 4/22/24.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class InputReader {
+public class InputManager {
     
-    public enum InputReaderError: Error {
+    public enum InputManagerError: Error {
         case notFound
     }
     
@@ -19,7 +19,7 @@ public class InputReader {
     
     func fetchInput(forDay day: Int) throws -> String {
         guard let path = bundle.path(forResource: "Day\(day)", ofType: "text") else {
-            throw InputReaderError.notFound
+            throw InputManagerError.notFound
         }
         return path
     }
