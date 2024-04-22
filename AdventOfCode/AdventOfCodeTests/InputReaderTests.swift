@@ -103,6 +103,9 @@ class InputReaderTests: XCTestCase {
         try sut.load()
         let character = try sut.next()
         XCTAssertEqual(character, "t", "Expected t, got \(character) instead")
+        
+        let character2 = try sut.next()
+        XCTAssertEqual(character2, "h", "Expected h, got \(character2) instead")
     }
     
     func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader? {
