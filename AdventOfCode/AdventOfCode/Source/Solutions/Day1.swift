@@ -38,6 +38,16 @@ class Day1: InputReader {
             return nil
         }
         
+        root.insert(word: "0", value: 0)
+        root.insert(word: "1", value: 1)
+        root.insert(word: "2", value: 2)
+        root.insert(word: "3", value: 3)
+        root.insert(word: "4", value: 4)
+        root.insert(word: "5", value: 5)
+        root.insert(word: "6", value: 6)
+        root.insert(word: "7", value: 7)
+        root.insert(word: "8", value: 8)
+        root.insert(word: "9", value: 9)
         root.insert(word: "one", value: 1)
         root.insert(word: "two", value: 2)
         root.insert(word: "three", value: 3)
@@ -89,11 +99,6 @@ class Day1: InputReader {
             do {
                 guard let char = try next() else { continue }
                 switch char {
-                case "0"..."9":
-                    if accumulated > 10 {
-                        accumulated = accumulated/10
-                    }
-                    accumulated = (accumulated * 10) + Int("\(char)")!
                 case "\n":
                     if accumulated < 10 {
                         accumulated = accumulated + (accumulated * 10)
