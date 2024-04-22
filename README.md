@@ -1,2 +1,1 @@
-# AdventOfCode
-[Advent of Code](https://adventofcode.com/)
+# [Advent Of Code]((https://adventofcode.com/))
