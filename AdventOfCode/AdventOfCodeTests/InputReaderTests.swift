@@ -11,6 +11,8 @@ class InputReader {
     
     enum InputReaderError: Error {
         case notFound
+        case notInitialized
+        case endOfFile
     }
     
     private let filePath: String
@@ -29,7 +31,18 @@ class InputReader {
         }
         
         self.fileHandle = fileHandle
-        try fileHandle.seek(toOffset: 0)
+    }
+    
+    func next() throws -> Character {
+        guard let fileHandle else {
+            throw InputReaderError.notInitialized
+        }
+        
+        guard let data = try fileHandle.read(upToCount: 1) else {
+            throw InputReaderError.endOfFile
+        }
+        
+        return "a"
     }
 }
 
@@ -46,18 +59,39 @@ class InputReaderTests: XCTestCase {
     }
     
     func test_load_throws_error_on_missing_file() {
-        let sut = makeSUT()
-        let path = Bundle(for: Self.self).path(forResource: "InputTest", ofType: "text")!
+        let sut = makeSUT("DeleteTest", "text")
+        let path = Bundle(for: Self.self).path(forResource: "DeleteTest", ofType: "text")!
         try! FileManager.default.removeItem(atPath: path)
         do {
             try sut?.load()
             XCTFail("Expected error, got success instead")
         } catch {
-            XCTAssertEqual(error as? InputReader.InputReaderError, InputReader.InputReaderError.notFound)
+            XCTAssertEqual(error as? InputReader.InputReaderError, .notFound)
         }
     }
     
-    func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader! {
+    func test_next_throws_not_initialized_on_not_loaded_file() {
+        let sut = makeSUT()
+        do {
+            let character = try sut?.next()
+            XCTFail("Expected error, got \(character) instead")
+        } catch {
+            XCTAssertEqual(error as? InputReader.InputReaderError, .notInitialized)
+        }
+    }
+    
+    func test_next_throws_end_of_file_on_empty_file() throws {
+        let sut = makeSUT("EmptyTest", "text")!
+        try sut.load()
+        do {
+            let character = try sut.next()
+            XCTFail("Expected error, got \(character) instead")
+        } catch {
+            XCTAssertEqual(error as? InputReader.InputReaderError, .endOfFile)
+        }
+    }
+    
+    func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader? {
         return InputReader(in: Bundle(for: Self.self), file: file, ofType: type)
     }
 }
