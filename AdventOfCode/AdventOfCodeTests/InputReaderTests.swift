@@ -59,7 +59,7 @@ class InputReaderTests: XCTestCase {
     }
     
     func test_load_throws_error_on_missing_file() {
-        let sut = makeSUT("DeleteTest", "text")
+        let sut = makeSUT("DeleteTest")
         let path = Bundle(for: Self.self).path(forResource: "DeleteTest", ofType: "text")!
         try! FileManager.default.removeItem(atPath: path)
         do {
@@ -81,7 +81,7 @@ class InputReaderTests: XCTestCase {
     }
     
     func test_next_throws_end_of_file_on_empty_file() throws {
-        let sut = makeSUT("EmptyTest", "text")!
+        let sut = makeSUT("EmptyTest")!
         try sut.load()
         do {
             let character = try sut.next()
@@ -92,7 +92,7 @@ class InputReaderTests: XCTestCase {
     }
     
     func test_next_nil_on_invalid_character() throws {
-        let sut = makeSUT("InvalidCharacterTest", "text")!
+        let sut = makeSUT("InvalidCharacterTest")!
         try sut.load()
         let character = try sut.next()
         XCTAssertNil(character, "Expected nil, got \(character) instead")
@@ -106,6 +106,16 @@ class InputReaderTests: XCTestCase {
         
         let character2 = try sut.next()
         XCTAssertEqual(character2, "h", "Expected h, got \(character2) instead")
+    }
+    
+    func test_next_character_on_escape_characters() throws {
+        let sut = makeSUT("EscapeCharacters")!
+        try sut.load()
+        let character = try sut.next()
+        XCTAssertEqual(character, "\n", "Expected \n, got \(character) instead")
+        
+        let character2 = try sut.next()
+        XCTAssertEqual(character2, "\t", "Expected \t, got \(character2) instead")
     }
     
     func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader? {
