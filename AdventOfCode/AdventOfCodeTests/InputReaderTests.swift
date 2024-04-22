@@ -38,11 +38,22 @@ class InputReader {
             throw InputReaderError.notInitialized
         }
         
-        guard let data = try fileHandle.read(upToCount: 1) else {
+        var data: Data!
+        do {
+            if let d = try fileHandle.read(upToCount: 1) {
+                data = d
+            } else {
+                throw InputReaderError.endOfFile
+            }
+        } catch {
             throw InputReaderError.endOfFile
         }
         
         return String(data: data, encoding: .utf8)?.first
+    }
+    
+    func close() throws {
+        try fileHandle?.close()
     }
 }
 
@@ -95,27 +106,39 @@ class InputReaderTests: XCTestCase {
         let sut = makeSUT("InvalidCharacterTest")!
         try sut.load()
         let character = try sut.next()
-        XCTAssertNil(character, "Expected nil, got \(character) instead")
+        XCTAssertNil(character, "Expected nil, got \(String(describing: character)) instead")
     }
     
     func test_next_character_on_valid_character() throws {
         let sut = makeSUT()!
         try sut.load()
         let character = try sut.next()
-        XCTAssertEqual(character, "t", "Expected t, got \(character) instead")
+        XCTAssertEqual(character, "t", "Expected t, got \(String(describing: character)) instead")
         
         let character2 = try sut.next()
-        XCTAssertEqual(character2, "h", "Expected h, got \(character2) instead")
+        XCTAssertEqual(character2, "h", "Expected h, got \(String(describing: character2)) instead")
     }
     
     func test_next_character_on_escape_characters() throws {
         let sut = makeSUT("EscapeCharacters")!
         try sut.load()
         let character = try sut.next()
-        XCTAssertEqual(character, "\n", "Expected \n, got \(character) instead")
+        XCTAssertEqual(character, "\n", "Expected \n, got \(String(describing: character)) instead")
         
         let character2 = try sut.next()
-        XCTAssertEqual(character2, "\t", "Expected \t, got \(character2) instead")
+        XCTAssertEqual(character2, "\t", "Expected \t, got \(String(describing: character2)) instead")
+    }
+    
+    func test_next_throws_eof_on_closed_file() throws {
+        let sut = makeSUT()!
+        try sut.load()
+        try sut.close()
+        do {
+            let character = try sut.next()
+            XCTFail("Expected error, got \(String(describing: character)) instead")
+        } catch {
+            XCTAssertEqual(error as? InputReader.InputReaderError, .endOfFile)
+        }
     }
     
     func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader? {
