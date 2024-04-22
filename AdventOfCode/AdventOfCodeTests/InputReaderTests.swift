@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import AdventOfCode
+@testable import AdventOfCode 
 
 class InputReaderTests: XCTestCase {
 

@@ -44,6 +44,7 @@
 		6AA6588A2BD60E39004FD293 /* InvalidCharacterTest.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = InvalidCharacterTest.text; sourceTree = "<group>"; };
 		6AA6588E2BD60FE5004FD293 /* EscapeCharacters.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EscapeCharacters.text; sourceTree = "<group>"; };
 		6AA658942BD62332004FD293 /* InputReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputReader.swift; sourceTree = "<group>"; };
+		6AA658972BD62416004FD293 /* Day1.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Day1.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				6AA6586A2BD5FAE0004FD293 /* Day1.text */,
+				6AA658972BD62416004FD293 /* Day1.md */,
 			);
 			path = Day1;
 			sourceTree = "<group>";
