@@ -33,7 +33,7 @@ class InputReader {
         self.fileHandle = fileHandle
     }
     
-    func next() throws -> Character {
+    func next() throws -> Character? {
         guard let fileHandle else {
             throw InputReaderError.notInitialized
         }
@@ -42,7 +42,7 @@ class InputReader {
             throw InputReaderError.endOfFile
         }
         
-        return "a"
+        return String(data: data, encoding: .utf8)?.first
     }
 }
 
@@ -74,7 +74,7 @@ class InputReaderTests: XCTestCase {
         let sut = makeSUT()
         do {
             let character = try sut?.next()
-            XCTFail("Expected error, got \(character) instead")
+            XCTFail("Expected error, got \(String(describing: character)) instead")
         } catch {
             XCTAssertEqual(error as? InputReader.InputReaderError, .notInitialized)
         }
@@ -89,6 +89,20 @@ class InputReaderTests: XCTestCase {
         } catch {
             XCTAssertEqual(error as? InputReader.InputReaderError, .endOfFile)
         }
+    }
+    
+    func test_next_nil_on_invalid_character() throws {
+        let sut = makeSUT("InvalidCharacterTest", "text")!
+        try sut.load()
+        let character = try sut.next()
+        XCTAssertNil(character, "Expected nil, got \(character) instead")
+    }
+    
+    func test_next_character_on_valid_character() throws {
+        let sut = makeSUT()!
+        try sut.load()
+        let character = try sut.next()
+        XCTAssertEqual(character, "t", "Expected t, got \(character) instead")
     }
     
     func makeSUT(_ file: String = "InputTest", _ type: String = "text") -> InputReader? {

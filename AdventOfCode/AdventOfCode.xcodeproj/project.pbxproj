@@ -16,6 +16,7 @@
 		6AA658842BD603D0004FD293 /* InputTest.text in Resources */ = {isa = PBXBuildFile; fileRef = 6AA658832BD603D0004FD293 /* InputTest.text */; };
 		6AA658862BD60C69004FD293 /* DeleteTest.text in Resources */ = {isa = PBXBuildFile; fileRef = 6AA658852BD60C69004FD293 /* DeleteTest.text */; };
 		6AA658882BD60D45004FD293 /* EmptyTest.text in Resources */ = {isa = PBXBuildFile; fileRef = 6AA658872BD60D45004FD293 /* EmptyTest.text */; };
+		6AA6588B2BD60E39004FD293 /* InvalidCharacterTest.text in Resources */ = {isa = PBXBuildFile; fileRef = 6AA6588A2BD60E39004FD293 /* InvalidCharacterTest.text */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		6AA658832BD603D0004FD293 /* InputTest.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = InputTest.text; sourceTree = "<group>"; };
 		6AA658852BD60C69004FD293 /* DeleteTest.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DeleteTest.text; sourceTree = "<group>"; };
 		6AA658872BD60D45004FD293 /* EmptyTest.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = EmptyTest.text; sourceTree = "<group>"; };
+		6AA6588A2BD60E39004FD293 /* InvalidCharacterTest.text */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = InvalidCharacterTest.text; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				6AA658832BD603D0004FD293 /* InputTest.text */,
 				6AA658852BD60C69004FD293 /* DeleteTest.text */,
 				6AA658872BD60D45004FD293 /* EmptyTest.text */,
+				6AA6588A2BD60E39004FD293 /* InvalidCharacterTest.text */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				6AA6587D2BD5FD39004FD293 /* Day1.text in Resources */,
 				6AA658862BD60C69004FD293 /* DeleteTest.text in Resources */,
 				6AA658842BD603D0004FD293 /* InputTest.text in Resources */,
+				6AA6588B2BD60E39004FD293 /* InvalidCharacterTest.text in Resources */,
 				6AA658882BD60D45004FD293 /* EmptyTest.text in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
