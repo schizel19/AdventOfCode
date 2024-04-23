@@ -22,6 +22,29 @@ class TrieNode {
     }
 }
 
+func getValuesFor(_ root: TrieNode, word: String) -> [Int] {
+    var result = [Int]()
+    let word = Array(word)
+    
+    func dfs(_ node: TrieNode, current: Int) {
+        if current >= word.count { return }
+        let char = word[current]
+        if let next = node.children[char] {
+            if next.value != 0 {
+                result.append(next.value)
+            } else {
+                dfs(next, current: current + 1)
+            }
+        }
+    }
+    
+    for start in 0..<word.count {
+        dfs(root, current: start)
+    }
+    
+    return result
+}
+
 
 class Day1: InputReader {
     
@@ -92,40 +115,19 @@ class Day1: InputReader {
     
     func solve2() throws -> Int {
         var sum = 0
-        var accumulated = 0
         var eof = false
-        
+        var accumulated = ""
+    
         while !eof {
             do {
                 guard let char = try next() else { continue }
                 switch char {
                 case "\n":
-                    if accumulated < 10 {
-                        accumulated = accumulated + (accumulated * 10)
-                    }
-                    sum += accumulated
-                    accumulated = 0
+                    let values = getValuesFor(root, word: accumulated)
+                    sum += (values.first! * 10) + (values.last!)
+                    accumulated = ""
                 default:
-                    var node: TrieNode?
-                    if current.children[char] == nil {
-                        node = root.children[char]
-                    } else {
-                        node = current.children[char]
-                    }
-                    guard let node else {
-                        current = root
-                        continue
-                    }
-                    
-                    if node.value != 0 {
-                        if accumulated > 10 {
-                            accumulated = accumulated/10
-                        }
-                        accumulated = (accumulated * 10) + node.value
-                        current = root
-                    } else {
-                        current = node
-                    }
+                    accumulated += "\(char)"
                 }
             } catch {
                 eof = true

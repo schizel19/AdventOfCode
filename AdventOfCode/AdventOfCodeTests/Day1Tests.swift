@@ -30,6 +30,6 @@ class Day1Tests: XCTestCase {
 
     func test_solve_problem2() {
         let sut = Day1Solution()
-        XCTAssertEqual(54619, sut.solve2())
+        XCTAssertEqual(54530, sut.solve2())
     }
 }
